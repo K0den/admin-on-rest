@@ -5,22 +5,27 @@ import MenuItem from "material-ui/MenuItem";
 import {withRouter} from "react-router";
 
 export class MenuItemLinkComponent extends Component {
-  static propTypes = {
-    history: PropTypes.object.isRequired,
-    to: PropTypes.string.isRequired,
-    onTouchTap: PropTypes.func,
-  };
+    static propTypes = {
+        history: PropTypes.object.isRequired,
+        onClick: PropTypes.func.isRequired,
+        to: PropTypes.string.isRequired,
+    };
 
-  handleMenuTap = () => {
-    const {history, onTouchTap} = this.props;
-    history.push(this.props.to);
-    if (onTouchTap) onTouchTap();
-  };
-  render() {
-    const {history, match, location, staticContext, ...props} = this.props; // eslint-disable-line
+    handleMenuTap = () => {
+        this.props.history.push(this.props.to);
+        this.props.onClick();
+    };
+    render() {
+        const {
+            history,
+            match,
+            location,
+            staticContext,
+            ...props
+        } = this.props;
 
-    return <MenuItem {...props} onTouchTap={this.handleMenuTap} />;
-  }
+        return <MenuItem {...props} onClick={this.handleMenuTap} />;
+    }
 }
 
 export default withRouter(MenuItemLinkComponent);

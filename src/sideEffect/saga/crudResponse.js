@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import {all, put, takeEvery} from "redux-saga/effects";
 import {push} from "react-router-redux";
+=======
+import { all, put, takeEvery } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
+import { reset } from 'redux-form';
+>>>>>>> upstream/master
 import {
   CRUD_CREATE_FAILURE,
   CRUD_CREATE_SUCCESS,

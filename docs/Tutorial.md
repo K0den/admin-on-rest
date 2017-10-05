@@ -545,7 +545,7 @@ This works exactly the way you expect. The lesson here is that admin-on-rest tak
 
 Here is the elephant in the room of this tutorial. In real world projects, the REST dialect of your API won't match the JSONPLaceholder dialect. Writing a REST client is probably the first thing you'll have to do to make admin-on-rest work. Depending on your API, this can require a few hours of additional work.
 
-Admin-on-rest delegates every REST calls to a REST client function. This function must simply return a promise for the result. This gives extreme freedom to map any API dialect, add authentication headers, use endpoints from several domains, etc.
+Admin-on-rest delegates every REST call to a REST client function. This function must simply return a promise for the result. This gives extreme freedom to map any API dialect, add authentication headers, use endpoints from several domains, etc.
 
 For instance, let's imagine you have to use the my.api.url API, which expects the following parameters:
 
@@ -574,6 +574,7 @@ import {
     DELETE,
     fetchUtils,
 } from 'admin-on-rest';
+import { stringify } from 'query-string';
 
 const API_URL = 'my.api.url';
 
@@ -585,7 +586,6 @@ const API_URL = 'my.api.url';
  */
 const convertRESTRequestToHTTP = (type, resource, params) => {
     let url = '';
-    const { queryParameters } = fetchUtils;
     const options = {};
     switch (type) {
     case GET_LIST: {
@@ -596,7 +596,7 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
-        url = `${API_URL}/${resource}?${queryParameters(query)}`;
+        url = `${API_URL}/${resource}?${stringify(query)}`;
         break;
     }
     case GET_ONE:
@@ -606,7 +606,7 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
         const query = {
             filter: JSON.stringify({ id: params.ids }),
         };
-        url = `${API_URL}/${resource}?${queryParameters(query)}`;
+        url = `${API_URL}/${resource}?${stringify(query)}`;
         break;
     }
     case GET_MANY_REFERENCE: {
@@ -617,7 +617,7 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
             range: JSON.stringify([(page - 1) * perPage, (page * perPage) - 1]),
             filter: JSON.stringify({ ...params.filter, [params.target]: params.id }),
         };
-        url = `${API_URL}/${resource}?${queryParameters(query)}`;
+        url = `${API_URL}/${resource}?${stringify(query)}`;
         break;
     }
     case UPDATE:

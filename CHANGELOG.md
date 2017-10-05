@@ -1,5 +1,95 @@
 # Changelog
 
+## v1.3.2
+
+* Fix JS error on `<WithPermission>` ([fzaninotto](https://github.com/fzaninotto))
+* Fix tag filter in example post list ([ThieryMichel](https://github.com/ThieryMichel))
+* Fix bad links to `Authorization` documentation sections ([djhi](https://github.com/djhi))
+* Fix mention about a `<ReferenceManyInput>` ([djhi](https://github.com/djhi))
+* Fix multiple `<ReferenceManyField>` on same resource with different filter ([ThieryMichel](https://github.com/ThieryMichel))
+* Fix trailing slash in `<EditButton>` link ([ThieryMichel](https://github.com/ThieryMichel))
+* Fix Optimistic rendering of List may create errors due to outdated data ([ThieryMichel](https://github.com/ThieryMichel))
+* Fix documentation about `onTouchTap`, replaced by `onClick` ([djhi](https://github.com/djhi))
+* Fix List button displayed in show view even when no List component defined ([ThieryMichel](https://github.com/ThieryMichel))
+* Fix `<AutocompleteInput>` can not be changed once a value is selected ([ThieryMichel](https://github.com/ThieryMichel))
+* Fix `<DateInput>` Filter first passed as `String`, then as `Date` ([ThieryMichel](https://github.com/ThieryMichel))
+* Fix `<FilterForm>` is not themable ([djhi](https://github.com/djhi))
+* Fix typo in `<Admin>` component documentation ([than](https://github.com/than))
+* Fix `<FileInputPreview>` is not themable ([djhi](https://github.com/djhi))
+* Fix Custom App documentation ([kopax](https://github.com/kopax))
+* Fix missing refresh of `<RadioButtonGroupInput>` ([michaelluk](https://github.com/michaelluk))
+* Remove mention of `aor-permissions` from documentation ([djhi](https://github.com/djhi))
+* Fix performance optimization in `<CreateButton>` ([natrim](https://github.com/natrim))
+* Add mentions of `aor-embedded-array` and `aor-rest-client-router` packages to the doc ([MhdSyrwan](https://github.com/MhdSyrwan))
+
+## v1.3.1
+
+* Fix Delete actions fails on IE11 ([fzaninotto](https://github.com/fzaninotto))
+* Fix npm package contains files from previous builds ([ArnaudD](https://github.com/ArnaudD))
+* Fix default values handling for deep paths with dot notation ([djhi](https://github.com/djhi))
+* Fix alwaysOn filters defaultValue being ignored ([djhi](https://github.com/djhi))
+* Fix missing import in Authorization documentation ([Phocea](https://github.com/Phocea))
+* Fix `<BooleanInput>` `onChange` with false value ([djhi](https://github.com/djhi))
+* Fix missing `refresh` prop in `<List>` component ([djhi](https://github.com/djhi))
+* Fix date filters ([djhi](https://github.com/djhi))
+* Fix typo in custom actions documentation ([RWOverdijk](https://github.com/RWOverdijk))
+
+## v.1.3.0
+
+* Add permissions handling ([djhi](https://github.com/djhi))
+* Add Not Found page ([fzaninotto](https://github.com/fzaninotto))
+* Add support for layoutless custom routes ([marcw](https://github.com/marcw))
+* Add support for custom validator messages ([fzaninotto](https://github.com/fzaninotto))
+* Add support for nested filter object ([mtakayuki](https://github.com/mtakayuki))
+* Add response body to HttpError ([marcw](https://github.com/marcw))
+* Add ability to refresh views using a redux action ([djhi](https://github.com/djhi))
+* Add `previousData` to `crudDelete` payload ([grahamlyus](https://github.com/grahamlyus))
+* Add greek translation ([zifnab87](https://github.com/zifnab87))
+* Add Ukrainian translation ([vitivs](https://github.com/vitivs))
+* Upgrade dependencies (MUI 0.19, react in peer dependencies) ([djhi](https://github.com/djhi))
+* Update the redux state structure to avoid name conflicts ([lutangar](https://github.com/lutangar))
+* Update code formatting standard (prettier) ([fzaninotto](https://github.com/fzaninotto))
+* Fix query string builder in REST clients ([mtakayuki](https://github.com/mtakayuki))
+* Fix webpack file present in root directory ([fzaninotto](https://github.com/fzaninotto))
+* Fix forms default values handling ([djhi](https://github.com/djhi))
+* Fix `<SelectInput>` with `allowEmpty` throws key-warning ([fab1an](https://github.com/fab1an))
+* Fix `onMenuTap` warning on medium and larger devices ([jf248](https://github.com/jf248))
+* Fix links in documentation ([Phocea](https://github.com/Phocea))
+
+## v1.2.3
+
+* Add Epilogue REST client ([dunghuynh](https://github.com/dunghuynh))
+* Fix `SelectInput` selection via keyboard ([djhi](https://github.com/djhi))
+* Fix `fetchJson` to allow custom content type ([sGy1980de](https://github.com/sGy1980de))
+* Fix `TabbedForm` errors being hidden for inactive tabs ([djhi](https://github.com/djhi))
+* Fix `FileInput` handling when allowing only a single file ([djhi](https://github.com/djhi))
+* Fix numeric validators for sero value ([djhi](https://github.com/djhi))
+* Fix colors used for pagination chevrons ([djhi](https://github.com/djhi))
+* Fix `SelectInput` Bidirectional binding ([djhi](https://github.com/djhi))
+* Fix `FileInput` does not display error on validation error ([djhi](https://github.com/djhi))
+* Add Danish translation ([SSA111](https://github.com/SSA111))
+* Fix typo in tutorial ([melaniedavila](https://github.com/melaniedavila))
+* Add Norwegian translation ([zeusbaba](https://github.com/zeusbaba))
+* Fix checkboxes getting reordered when used with `ReferenceArrayInput` ([fzaninotto](https://github.com/fzaninotto))
+* Fix typo in Translation documentation ([dimitrovs](https://github.com/dimitrovs))
+
+## v1.2.2
+
+* Add yarn support ([dervos](https://github.com/dervos))
+* Fix login form lock and loader ([teldosas](https://github.com/teldosas))
+* Fix custom headers documentation ([fzaninotto](https://github.com/fzaninotto))
+* Add support for numeric value in NumberInput step prop ([fzaninotto](https://github.com/fzaninotto))
+* Add documentation for admin history prop ([fzaninotto](https://github.com/fzaninotto))
+* Fix doc for ISO date input ([leesei](https://github.com/leesei))
+* Fix wrong use of the 'Edition' word across the documentation ([cornhundred](https://github.com/cornhundred))
+* Fix typo in tutorial ([cornhundred](https://github.com/cornhundred))
+* Fix typo in RestClients documentation ([arlair](https://github.com/arlair))
+* Add farsi translation package ([hamidfzm](https://github.com/hamidfzm))
+* Fix translation warning on `TabbedShowLayout`'s tab names ([freeznet](https://github.com/freeznet))
+* Fix typo in Authentication documentation ([RWOverdijk](https://github.com/RWOverdijk))
+* Fix typo in CreateEdit documentation ([RWOverdijk](https://github.com/RWOverdijk))
+* Add Turkish translation package ([ismailbaskin](https://github.com/ismailbaskin))
+
 ## v1.2.1
 
 * Fix multi select in `FileInput` ([doananh234](https://github.com/doananh234))
