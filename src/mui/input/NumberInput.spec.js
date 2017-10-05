@@ -19,9 +19,7 @@ describe('<NumberInput />', () => {
     };
 
     it('should use a mui TextField', () => {
-        const wrapper = shallow(
-            <NumberInput {...defaultProps} input={{ value: 'hello' }} />
-        );
+        const wrapper = shallow(<NumberInput {...defaultProps} input={{ value: 'hello' }} />);
         const TextFieldElement = wrapper.find('TextField');
         assert.equal(TextFieldElement.length, 1);
         assert.equal(TextFieldElement.prop('value'), 'hello');
@@ -33,9 +31,7 @@ describe('<NumberInput />', () => {
             const onChange = sinon.spy();
 
             const props = { ...defaultProps };
-            const wrapper = shallow(
-                <NumberInput {...props} onChange={onChange} />
-            );
+            const wrapper = shallow(<NumberInput {...props} onChange={onChange} />);
 
             wrapper.find('TextField').simulate('change', 3);
             assert.deepEqual(onChange.args, [[3]]);
@@ -44,9 +40,7 @@ describe('<NumberInput />', () => {
         it('should keep calling redux-form original event', () => {
             const onChange = sinon.spy();
 
-            const wrapper = shallow(
-                <NumberInput {...defaultProps} input={{ value: 2, onChange }} />
-            );
+            const wrapper = shallow(<NumberInput {...defaultProps} input={{ value: 2, onChange }} />);
             wrapper.find('TextField').simulate('change', 3);
             assert.deepEqual(onChange.args, [[3]]);
         });
@@ -57,9 +51,7 @@ describe('<NumberInput />', () => {
             const onFocus = sinon.spy();
 
             const props = { ...defaultProps };
-            const wrapper = shallow(
-                <NumberInput {...props} onFocus={onFocus} />
-            );
+            const wrapper = shallow(<NumberInput {...props} onFocus={onFocus} />);
 
             wrapper.find('TextField').simulate('focus', 3);
             assert.deepEqual(onFocus.args, [[3]]);
@@ -68,9 +60,7 @@ describe('<NumberInput />', () => {
         it('should keep calling redux-form original event', () => {
             const onFocus = sinon.spy();
 
-            const wrapper = shallow(
-                <NumberInput {...defaultProps} input={{ value: 2, onFocus }} />
-            );
+            const wrapper = shallow(<NumberInput {...defaultProps} input={{ value: 2, onFocus }} />);
             wrapper.find('TextField').simulate('focus', 3);
             assert.deepEqual(onFocus.args, [[3]]);
         });
@@ -113,7 +103,7 @@ describe('<NumberInput />', () => {
                         onBlur: () => {},
                         onChange,
                     }}
-                />
+                />,
             );
 
             const TextFieldElement = wrapper.find('TextField').first();

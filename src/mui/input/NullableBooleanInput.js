@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 import SelectInput from './SelectInput';
 import translate from '../../i18n/translate';
 
-export const NullableBooleanInput = ({
-    input,
-    meta,
-    label,
-    source,
-    elStyle,
-    resource,
-    translate,
-}) => (
+export const NullableBooleanInput = ({ input, meta, label, source, elStyle, resource, translate }) => (
     <SelectInput
         input={input}
         label={label}

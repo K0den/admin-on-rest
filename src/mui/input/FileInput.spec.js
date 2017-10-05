@@ -1,6 +1,5 @@
 import React from 'react';
 import assert from 'assert';
-import { spy } from 'sinon';
 import { shallow } from 'enzyme';
 import { File, FileReader } from 'file-api';
 
@@ -14,7 +13,7 @@ describe('<FileInput />', () => {
     });
 
     it('should display a dropzone', () => {
-        const wrapper = shallow(
+        const wrapper = shallow((
             <FileInput
                 input={{
                     value: {
@@ -24,14 +23,14 @@ describe('<FileInput />', () => {
                 translate={x => x}
                 source="picture"
             />
-        );
+        ));
 
         assert.equal(wrapper.find('Dropzone').length, 1);
     });
 
     it('should display correct label depending multiple property', () => {
         const test = (multiple, expectedLabel) => {
-            const wrapper = shallow(
+            const wrapper = shallow((
                 <FileInput
                     multiple={multiple}
                     input={{
@@ -42,7 +41,7 @@ describe('<FileInput />', () => {
                     translate={x => x}
                     source="picture"
                 />
-            );
+            ));
 
             assert.equal(wrapper.find('Dropzone p').text(), expectedLabel);
         };
@@ -52,8 +51,8 @@ describe('<FileInput />', () => {
     });
 
     it('should display correct custom label', () => {
-        const test = expectedLabel => {
-            const wrapper = shallow(
+        const test = (expectedLabel) => {
+            const wrapper = shallow((
                 <FileInput
                     placeholder={expectedLabel}
                     input={{
@@ -64,111 +63,22 @@ describe('<FileInput />', () => {
                     translate={x => x}
                     source="picture"
                 />
-            );
+            ));
 
             assert.ok(wrapper.find('Dropzone').contains(expectedLabel));
         };
-        const CustomLabel = () => <div>Custom label</div>;
+        const CustomLabel = () => (
+            <div>Custom label</div>
+        );
 
         test('custom label');
         test(<h1>Custom label</h1>);
         test(<CustomLabel />);
     });
 
-    it('should correctly update upon drop when allowing a single file', () => {
-        const onChange = spy();
-
-        const wrapper = shallow(
-            <FileInput
-                input={{
-                    value: {
-                        src: 'b64_picture',
-                    },
-                    onChange,
-                }}
-                translate={x => x}
-                source="src"
-            />
-        );
-
-        wrapper.instance().onDrop([{ preview: 'new_b64_picture' }]);
-
-        assert.deepEqual(onChange.args[0][0], [{ preview: 'new_b64_picture' }]);
-    });
-
-    it('should correctly update upon removal when allowing a single file', () => {
-        const onChange = spy();
-
-        const wrapper = shallow(
-            <FileInput
-                input={{
-                    value: {
-                        src: 'b64_picture',
-                    },
-                    onChange,
-                }}
-                translate={x => x}
-                source="src"
-            />
-        );
-
-        wrapper.instance().onRemove({ src: 'b64_picture' })();
-        assert.deepEqual(onChange.args[0][0], []);
-    });
-
-    it('should correctly update upon drop when allowing multiple files', () => {
-        const onChange = spy();
-
-        const wrapper = shallow(
-            <FileInput
-                input={{
-                    value: [
-                        { src: 'b64_picture' },
-                        { src: 'another_b64_picture' },
-                    ],
-                    onChange,
-                }}
-                translate={x => x}
-                source="pictures"
-                multiple
-            />
-        );
-
-        wrapper.instance().onDrop([{ preview: 'new_b64_picture' }]);
-
-        assert.deepEqual(onChange.args[0][0], [
-            { src: 'b64_picture' },
-            { src: 'another_b64_picture' },
-            { preview: 'new_b64_picture' },
-        ]);
-    });
-
-    it('should correctly update upon removal when allowing multiple files', () => {
-        const onChange = spy();
-
-        const wrapper = shallow(
-            <FileInput
-                input={{
-                    value: [
-                        { src: 'b64_picture' },
-                        { src: 'another_b64_picture' },
-                    ],
-                    onChange,
-                }}
-                translate={x => x}
-                source="pictures"
-                multiple
-            />
-        );
-
-        wrapper.instance().onRemove({ src: 'another_b64_picture' })();
-
-        assert.deepEqual(onChange.args[0][0], [{ src: 'b64_picture' }]);
-    });
-
     describe('Image Preview', () => {
         it('should display file preview using child as preview component', () => {
-            const wrapper = shallow(
+            const wrapper = shallow((
                 <FileInput
                     input={{
                         value: {
@@ -180,7 +90,7 @@ describe('<FileInput />', () => {
                 >
                     <ImageField source="url" title="title" />
                 </FileInput>
-            );
+            ));
 
             const previewImage = wrapper.find('ImageField');
 
@@ -194,50 +104,32 @@ describe('<FileInput />', () => {
         });
 
         it('should display all files (when several) previews using child as preview component', () => {
-            const wrapper = shallow(
+            const wrapper = shallow((
                 <FileInput
                     input={{
                         value: [
-                            {
-                                url: 'http://foo.com/bar.jpg',
-                                title: 'Hello world!',
-                            },
-                            {
-                                url: 'http://foo.com/qux.bmp',
-                                title: 'A good old Bitmap!',
-                            },
+                            { url: 'http://foo.com/bar.jpg', title: 'Hello world!' },
+                            { url: 'http://foo.com/qux.bmp', title: 'A good old Bitmap!' },
                         ],
                     }}
                     translate={x => x}
                 >
                     <ImageField source="url" title="title" />
                 </FileInput>
-            );
+            ));
 
             const previewImages = wrapper.find('ImageField');
 
             assert.equal(previewImages.length, 2);
             assert.equal(previewImages.at(0).prop('source'), 'url');
             assert.equal(previewImages.at(0).prop('title'), 'title');
-            assert.deepEqual(
-                previewImages.at(0).prop('record').title,
-                'Hello world!'
-            );
-            assert.deepEqual(
-                previewImages.at(0).prop('record').url,
-                'http://foo.com/bar.jpg'
-            );
+            assert.deepEqual(previewImages.at(0).prop('record').title, 'Hello world!');
+            assert.deepEqual(previewImages.at(0).prop('record').url, 'http://foo.com/bar.jpg');
 
             assert.equal(previewImages.at(1).prop('source'), 'url');
             assert.equal(previewImages.at(1).prop('title'), 'title');
-            assert.deepEqual(
-                previewImages.at(1).prop('record').title,
-                'A good old Bitmap!'
-            );
-            assert.deepEqual(
-                previewImages.at(1).prop('record').url,
-                'http://foo.com/qux.bmp'
-            );
+            assert.deepEqual(previewImages.at(1).prop('record').title, 'A good old Bitmap!');
+            assert.deepEqual(previewImages.at(1).prop('record').url, 'http://foo.com/qux.bmp');
         });
 
         it('should update previews when updating input value', () => {
@@ -252,7 +144,7 @@ describe('<FileInput />', () => {
                     }}
                 >
                     <ImageField source="url" />
-                </FileInput>
+                </FileInput>,
             );
 
             const previewImage = wrapper.find('ImageField');
@@ -276,9 +168,13 @@ describe('<FileInput />', () => {
 
         it('should update previews when dropping a file', () => {
             const wrapper = shallow(
-                <FileInput source="picture" translate={x => x} input={{}}>
+                <FileInput
+                    source="picture"
+                    translate={x => x}
+                    input={{}}
+                >
                     <ImageField source="url" />
-                </FileInput>
+                </FileInput>,
             );
 
             wrapper.setProps({
@@ -312,16 +208,14 @@ describe('<FileInput />', () => {
                 }}
             >
                 <ImageField source="url" />
-            </FileInput>
+            </FileInput>,
         );
 
-        const inputPreview = wrapper.find('MuiComponent'); // FileInputPreview is an muiThemable component
+        const inputPreview = wrapper.find('FileInputPreview');
         inputPreview.at(1).prop('onRemove')();
         wrapper.update();
 
-        const previewImages = wrapper
-            .find('ImageField')
-            .map(f => f.prop('record'));
+        const previewImages = wrapper.find('ImageField').map(f => f.prop('record'));
         assert.deepEqual(previewImages, [
             { url: 'http://static.acme.com/foo.jpg' },
             { url: 'http://static.acme.com/quz.jpg' },

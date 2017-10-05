@@ -1,1 +1,2 @@
-export default (basePath, id) => `${basePath}/${encodeURIComponent(id)}`;
+export default (basePath, id) =>
+    `${basePath}/${encodeURIComponent(id)}`

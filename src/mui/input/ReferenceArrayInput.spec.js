@@ -16,37 +16,32 @@ describe('<ReferenceArrayInput />', () => {
     const MyComponent = () => <span id="mycomponent" />;
 
     it('should not render anything if there is no referenceRecord and allowEmpty is false', () => {
-        const wrapper = shallow(
+        const wrapper = shallow((
             <ReferenceArrayInput {...defaultProps}>
                 <MyComponent />
             </ReferenceArrayInput>
-        );
+        ));
         const MyComponentElement = wrapper.find('MyComponent');
         assert.equal(MyComponentElement.length, 0);
     });
 
     it('should not render enclosed component if allowEmpty is true', () => {
-        const wrapper = shallow(
+        const wrapper = shallow((
             <ReferenceArrayInput {...defaultProps} allowEmpty>
                 <MyComponent />
             </ReferenceArrayInput>
-        );
+        ));
         const MyComponentElement = wrapper.find('MyComponent');
         assert.equal(MyComponentElement.length, 1);
     });
 
     it('should call crudGetMatching on mount with default fetch values', () => {
         const crudGetMatching = sinon.spy();
-        shallow(
-            <ReferenceArrayInput
-                {...defaultProps}
-                allowEmpty
-                crudGetMatching={crudGetMatching}
-            >
+        shallow((
+            <ReferenceArrayInput {...defaultProps} allowEmpty crudGetMatching={crudGetMatching}>
                 <MyComponent />
-            </ReferenceArrayInput>,
-            { lifecycleExperimental: true }
-        );
+            </ReferenceArrayInput>
+        ), { lifecycleExperimental: true });
         assert.deepEqual(crudGetMatching.args[0], [
             'tags',
             'posts@tag_ids',
@@ -64,7 +59,7 @@ describe('<ReferenceArrayInput />', () => {
 
     it('should allow to customize crudGetMatching arguments with perPage, sort, and filter props', () => {
         const crudGetMatching = sinon.spy();
-        shallow(
+        shallow((
             <ReferenceArrayInput
                 {...defaultProps}
                 allowEmpty
@@ -74,9 +69,8 @@ describe('<ReferenceArrayInput />', () => {
                 filter={{ q: 'foo' }}
             >
                 <MyComponent />
-            </ReferenceArrayInput>,
-            { lifecycleExperimental: true }
-        );
+            </ReferenceArrayInput>
+        ), { lifecycleExperimental: true });
         assert.deepEqual(crudGetMatching.args[0], [
             'tags',
             'posts@tag_ids',
@@ -96,16 +90,15 @@ describe('<ReferenceArrayInput />', () => {
 
     it('should call crudGetMatching when setFilter is called', () => {
         const crudGetMatching = sinon.spy();
-        const wrapper = shallow(
+        const wrapper = shallow((
             <ReferenceArrayInput
                 {...defaultProps}
                 allowEmpty
                 crudGetMatching={crudGetMatching}
             >
                 <MyComponent />
-            </ReferenceArrayInput>,
-            { lifecycleExperimental: true }
-        );
+            </ReferenceArrayInput>
+        ), { lifecycleExperimental: true });
         wrapper.instance().setFilter('bar');
         assert.deepEqual(crudGetMatching.args[1], [
             'tags',
@@ -126,7 +119,7 @@ describe('<ReferenceArrayInput />', () => {
 
     it('should use custom filterToQuery function prop', () => {
         const crudGetMatching = sinon.spy();
-        const wrapper = shallow(
+        const wrapper = shallow((
             <ReferenceArrayInput
                 {...defaultProps}
                 allowEmpty
@@ -134,9 +127,8 @@ describe('<ReferenceArrayInput />', () => {
                 filterToQuery={searchText => ({ foo: searchText })}
             >
                 <MyComponent />
-            </ReferenceArrayInput>,
-            { lifecycleExperimental: true }
-        );
+            </ReferenceArrayInput>
+        ), { lifecycleExperimental: true });
         wrapper.instance().setFilter('bar');
         assert.deepEqual(crudGetMatching.args[1], [
             'tags',
@@ -157,7 +149,7 @@ describe('<ReferenceArrayInput />', () => {
 
     it('should call crudGetMany on mount if value is set', () => {
         const crudGetMany = sinon.spy();
-        shallow(
+        shallow((
             <ReferenceArrayInput
                 {...defaultProps}
                 allowEmpty
@@ -165,15 +157,17 @@ describe('<ReferenceArrayInput />', () => {
                 input={{ value: [5, 6] }}
             >
                 <MyComponent />
-            </ReferenceArrayInput>,
-            { lifecycleExperimental: true }
-        );
-        assert.deepEqual(crudGetMany.args[0], ['tags', [5, 6]]);
+            </ReferenceArrayInput>
+        ), { lifecycleExperimental: true });
+        assert.deepEqual(crudGetMany.args[0], [
+            'tags',
+            [5, 6],
+        ]);
     });
 
     it('should pass onChange down to child component', () => {
         const onChange = sinon.spy();
-        const wrapper = shallow(
+        const wrapper = shallow((
             <ReferenceArrayInput
                 {...defaultProps}
                 allowEmpty
@@ -181,9 +175,11 @@ describe('<ReferenceArrayInput />', () => {
             >
                 <MyComponent />
             </ReferenceArrayInput>
-        );
+        ));
         wrapper.find('MyComponent').simulate('change', 'foo');
-        assert.deepEqual(onChange.args[0], ['foo']);
+        assert.deepEqual(onChange.args[0], [
+            'foo',
+        ]);
     });
 
     it('should pass meta down to child component', () => {
@@ -194,7 +190,7 @@ describe('<ReferenceArrayInput />', () => {
                 meta={{ touched: false }}
             >
                 <MyComponent />
-            </ReferenceArrayInput>
+            </ReferenceArrayInput>,
         );
 
         const myComponent = wrapper.find('MyComponent');

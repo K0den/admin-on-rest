@@ -18,7 +18,10 @@ export const FileField = ({ elStyle, record, source, title, src }) => {
 
                     return (
                         <li key={index}>
-                            <a href={srcValue} title={titleValue}>
+                            <a
+                                href={srcValue}
+                                title={titleValue}
+                            >
                                 {titleValue}
                             </a>
                         </li>
@@ -30,9 +33,13 @@ export const FileField = ({ elStyle, record, source, title, src }) => {
 
     const titleValue = get(record, title) || title;
 
+
     return (
         <div style={elStyle}>
-            <a href={sourceValue} title={titleValue}>
+            <a
+                href={sourceValue}
+                title={titleValue}
+            >
                 {titleValue}
             </a>
         </div>

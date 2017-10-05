@@ -1,5 +1,6 @@
-const removeKey = (target, path) =>
-    Object.keys(target).reduce((acc, key) => {
+const removeKey = (target, path) => Object
+    .keys(target)
+    .reduce((acc, key) => {
         if (key !== path) {
             return Object.assign({}, acc, { [key]: target[key] });
         }

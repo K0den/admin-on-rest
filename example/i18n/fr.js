@@ -31,13 +31,6 @@ export const messages = {
                 },
             },
         },
-        users: {
-            name: 'User |||| Users',
-            fields: {
-                name: 'Name',
-                role: 'Role',
-            },
-        },
     },
     post: {
         list: {
@@ -56,18 +49,6 @@ export const messages = {
     comment: {
         list: {
             about: 'Au sujet de',
-        },
-    },
-    user: {
-        list: {
-            search: 'Recherche',
-        },
-        form: {
-            summary: 'Résumé',
-            security: 'Sécurité',
-        },
-        edit: {
-            title: 'Utilisateur "%{title}"',
         },
     },
 };

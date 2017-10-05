@@ -8,12 +8,12 @@ const cardActionStyle = {
     float: 'right',
 };
 
-const ShowActions = ({ basePath, data, hasDelete, hasEdit, hasList }) => (
+const ShowActions = ({ basePath, data, hasDelete, hasEdit, refresh }) => (
     <CardActions style={cardActionStyle}>
         {hasEdit && <EditButton basePath={basePath} record={data} />}
-        {hasList && <ListButton basePath={basePath} />}
+        <ListButton basePath={basePath} />
         {hasDelete && <DeleteButton basePath={basePath} record={data} />}
-        <RefreshButton />
+        <RefreshButton refresh={refresh} />
     </CardActions>
 );
 

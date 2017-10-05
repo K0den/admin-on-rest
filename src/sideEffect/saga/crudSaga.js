@@ -7,12 +7,11 @@ import referenceFetch from './referenceFetch';
 /**
  * @param {Object} restClient A REST object with two methods: fetch() and convertResponse()
  */
-export default (restClient, authClient) =>
-    function* crudSaga() {
-        yield all([
-            auth(authClient)(),
-            crudFetch(restClient)(),
-            crudResponse(),
-            referenceFetch(),
-        ]);
-    };
+export default (restClient, authClient) => function* crudSaga() {
+    yield all([
+        auth(authClient)(),
+        crudFetch(restClient)(),
+        crudResponse(),
+        referenceFetch(),
+    ]);
+};

@@ -73,50 +73,17 @@ import translate from '../../i18n/translate';
  * <AutocompleteInput source="author_id" options={{ fullWidth: true }} />
  */
 export class AutocompleteInput extends Component {
-    state = {};
-
-    componentWillMount() {
-        this.setSearchText(this.props);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.input.value !== nextProps.input.value) {
-            this.setSearchText(nextProps);
-        }
-    }
-
-    setSearchText(props) {
-        const { choices, input, optionValue } = props;
-
-        const selectedSource = choices.find(
-            choice => get(choice, optionValue) === input.value
-        );
-        const searchText = selectedSource && this.getSuggestion(selectedSource);
-        this.setState({ searchText });
-    }
-
     handleNewRequest = (chosenRequest, index) => {
         if (index !== -1) {
             const { choices, input, optionValue } = this.props;
             input.onChange(choices[index][optionValue]);
         }
-    };
-
-    handleUpdateInput = searchText => {
-        this.setState({ searchText });
-        const { setFilter } = this.props;
-        setFilter && setFilter(searchText);
-    };
+    }
 
     getSuggestion(choice) {
-        const { optionText, translate, translateChoice } = this.props;
-        const choiceName =
-            typeof optionText === 'function'
-                ? optionText(choice)
-                : get(choice, optionText);
-        return translateChoice
-            ? translate(choiceName, { _: choiceName })
-            : choiceName;
+        const { optionText, optionValue, translate, translateChoice } = this.props;
+        const choiceName = typeof optionText === 'function' ? optionText(choice) : get(choice, optionText);
+        return translateChoice ? translate(choiceName, { _: choiceName }) : choiceName;
     }
 
     render() {
@@ -124,40 +91,30 @@ export class AutocompleteInput extends Component {
             choices,
             elStyle,
             filter,
+            input,
             isRequired,
             label,
-            meta,
+            meta: { touched, error },
             options,
             optionValue,
             resource,
+            setFilter,
             source,
         } = this.props;
-        if (typeof meta === 'undefined') {
-            throw new Error(
-                "The AutocompleteInput component wasn't called within a redux-form <Field>. Did you decorate it and forget to add the addField prop to your component? See https://marmelab.com/admin-on-rest/Inputs.html#writing-your-own-input-component for details."
-            );
-        }
-        const { touched, error } = meta;
 
+        const selectedSource = choices.find(choice => get(choice, optionValue) === input.value);
         const dataSource = choices.map(choice => ({
             value: get(choice, optionValue),
             text: this.getSuggestion(choice),
         }));
         return (
             <AutoComplete
-                searchText={this.state.searchText}
+                searchText={selectedSource && this.getSuggestion(selectedSource)}
                 dataSource={dataSource}
-                floatingLabelText={
-                    <FieldTitle
-                        label={label}
-                        source={source}
-                        resource={resource}
-                        isRequired={isRequired}
-                    />
-                }
+                floatingLabelText={<FieldTitle label={label} source={source} resource={resource} isRequired={isRequired} />}
                 filter={filter}
                 onNewRequest={this.handleNewRequest}
-                onUpdateInput={this.handleUpdateInput}
+                onUpdateInput={setFilter}
                 openOnFocus
                 style={elStyle}
                 errorText={touched && error}
@@ -178,8 +135,10 @@ AutocompleteInput.propTypes = {
     meta: PropTypes.object,
     options: PropTypes.object,
     optionElement: PropTypes.element,
-    optionText: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-        .isRequired,
+    optionText: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func,
+    ]).isRequired,
     optionValue: PropTypes.string.isRequired,
     resource: PropTypes.string,
     setFilter: PropTypes.func,

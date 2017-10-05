@@ -59,7 +59,7 @@ const App = () => (
 * `/:id/show` maps to the `show` component
 * `/:id/delete` maps to the `remove` component
 
-**Tip**: You must add a `<Resource>` when you declare a reference (via `<ReferenceField>`, `<ReferenceArrayField>`, `<ReferenceManyField>`, `<ReferenceInput>` or `<ReferenceArrayInput>`), because admin-on-rest uses resources to define the data store structure. That's why there is an empty `tag` resource in the example above.
+**Tip**: You must add a `<Resource>` when you declare a reference (via `<ReferenceField>`, `<ReferenceArrayField>`, `<ReferenceManyField>`, `<ReferenceInput>`, `<ReferenceArrayInput>`, or `<ReferenceManyInput>`), because admin-on-rest uses resources to define the data store structure. That's why there is an empty `tag` resource in the example above.
 
 `<Resource>` also accepts additional props:
 
@@ -85,7 +85,7 @@ The routing will map the component as follows:
 * `/posts/:id/show` maps to `PostShow`
 * `/posts/:id/delete` maps to `PostRemove`
 
-**Tip**: If you want to use a special API endpoint (e.g. 'http://jsonplaceholder.typicode.com/my-custom-posts-endpoint') without altering the URL in the admin-on-rest application (so still use `/posts`), write the mapping from the resource `name` (`posts`) to the API endpoint (`my-custom-posts-endpoint`) in your own [`restClient`](./Admin.md#restclient)
+**Tip**: If you want to use a special API endpoint (e.g. 'http://jsonplaceholder.typicode.com/my-custom-posts-endpoint') without altering the URL in the admin-on-rest application (so still use `/posts`), write the mapping from the resource `name` (`posts`) to the API endpoint (`my-custom-posts-endpoint`) in your own [`restClient`](./Admin.html#restclient)
 
 ## `icon`
 

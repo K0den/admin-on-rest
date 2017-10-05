@@ -40,7 +40,6 @@ Admin-on-rest ships 2 REST client by default:
 
 You can find REST clients for various backends in third-party repositories:
 
-* **[Epilogue](https://github.com/dchester/epilogue)**: [dunghuynh/aor-epilogue-client](https://github.com/dunghuynh/aor-epilogue-client)
 * **[Feathersjs](http://www.feathersjs.com/)**: [josx/aor-feathers-client](https://github.com/josx/aor-feathers-client)
 * **[Firebase](https://firebase.google.com/)**: [sidferreira/aor-firebase-client](https://github.com/sidferreira/aor-firebase-client)
 * **[GraphQL](http://graphql.org/)**: [marmelab/aor-simple-graphql-client](https://github.com/marmelab/aor-simple-graphql-client) (uses [Apollo](http://www.apollodata.com/))
@@ -173,7 +172,7 @@ Now all the requests to the REST API will contain the `X-Custom-Header: foobar` 
 **Tip**: The most common usage of custom headers is for authentication. `fetchJson` has built-on support for the `Authorization` token header:
 
 ```jsx
-const httpClient = (url, options = {}) => {
+const httpClient = (url, options) => {
     options.user = {
         authenticated: true,
         token: 'SRTRDFVESGNJYTUKTYTHRG'
@@ -270,8 +269,8 @@ Type                 | Params format
 `GET_LIST`           | `{ pagination: { page: {int} , perPage: {int} }, sort: { field: {string}, order: {string} }, filter: {Object} }`
 `GET_ONE`            | `{ id: {mixed} }`
 `CREATE`             | `{ data: {Object} }`
-`UPDATE`             | `{ id: {mixed}, data: {Object}, previousData: {Object} }`
-`DELETE`             | `{ id: {mixed}, previousData: {Object} }`
+`UPDATE`             | `{ id: {mixed}, data: {Object} }`
+`DELETE`             | `{ id: {mixed} }`
 `GET_MANY`           | `{ ids: {mixed[]} }`
 `GET_MANY_REFERENCE` | `{ target: {string}, id: {mixed}, pagination: { page: {int} , perPage: {int} }, sort: { field: {string}, order: {string} }, filter: {Object} }`
 
@@ -284,16 +283,9 @@ restClient(GET_LIST, 'posts', {
     filter: { author_id: 12 },
 });
 restClient(GET_ONE, 'posts', { id: 123 });
-restClient(CREATE, 'posts', { data: { title: "hello, world" } });
-restClient(UPDATE, 'posts', {
-    id: 123,
-    data: { title: "hello, world!" },
-    previousData: { title: "previous title" }
-});
-restClient(DELETE, 'posts', {
-    id: 123,
-    previousData: { title: "hello, world" }
-});
+restClient(CREATE, 'posts', { title: "hello, world" });
+restClient(UPDATE, 'posts', { id: 123, { title: "hello, world!" } });
+restClient(DELETE, 'posts', { id: 123 });
 restClient(GET_MANY, 'posts', { ids: [123, 124, 125] });
 restClient(GET_MANY_REFERENCE, 'comments', {
     target: 'post_id',
@@ -344,26 +336,19 @@ restClient(GET_ONE, 'posts', { id: 123 })
 //     data: { id: 123, title: "hello, world" }
 // }
 
-restClient(CREATE, 'posts', { data: { title: "hello, world" } })
+restClient(CREATE, 'posts', { title: "hello, world" })
 .then(response => console.log(response));
 // {
 //     data: { id: 450, title: "hello, world" }
 // }
 
-restClient(UPDATE, 'posts', {
-    id: 123,
-    data: { title: "hello, world!" },
-    previousData: { title: "previous title" }
-})
+restClient(UPDATE, 'posts', { id: 123, { title: "hello, world!" } })
 .then(response => console.log(response));
 // {
 //     data: { id: 123, title: "hello, world!" }
 // }
 
-restClient(DELETE, 'posts', {
-    id: 123,
-    previousData: { title: "hello, world!" }
-})
+restClient(DELETE, 'posts', { id: 123 })
 .then(response => console.log(response));
 // {
 //     data: { id: 123, title: "hello, world" }
